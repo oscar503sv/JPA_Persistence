@@ -42,7 +42,12 @@ public class EstudianteBean {
         
         public String guardarEstudiante() {
         if (modelo.insertarEstudiante(estudiante) != 1) {
-            JsfUtil.setErrorMessage(null, "Ya se registró un alumno con este carnet");
+            if(modelo.modificarEstudiante(estudiante)== 1){
+            JsfUtil.setFlashMessage("exito","Alumno modificado exitosamente");
+            }
+            else{
+                JsfUtil.setErrorMessage(null,"Error al modificar estudiante");
+            }
         return null;//Regreso a la misma página
         } else {
             JsfUtil.setFlashMessage("exito","Alumno registrado exitosamente");
