@@ -41,19 +41,21 @@ public class EstudianteBean {
         }
         
         public String guardarEstudiante() {
-        if (modelo.insertarEstudiante(estudiante) != 1) {
+        if (modelo.insertarEstudiante(estudiante) == 1) {
+            JsfUtil.setFlashMessage("exito","Alumno registrado exitosamente");
+                //Forzando la redirección en el cliente
+        return "registroEstudiantes?faces-redirect=true";
+        
+        }else{
             if(modelo.modificarEstudiante(estudiante)== 1){
             JsfUtil.setFlashMessage("exito","Alumno modificado exitosamente");
+            return "registroEstudiantes?faces-redirect=true";
             }
             else{
                 JsfUtil.setErrorMessage(null,"Error al modificar estudiante");
             }
-        return null;//Regreso a la misma página
-        } else {
-            JsfUtil.setFlashMessage("exito","Alumno registrado exitosamente");
-                //Forzando la redirección en el cliente
-        return "registroEstudiantes?faces-redirect=true";
-            }
+            return null;//Regreso a la misma página
+          }       
         }
         
         public String eliminarEstudiante() {
